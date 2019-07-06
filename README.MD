@@ -255,7 +255,7 @@ Get the character list for an episode
 ```
 
 
-_**POST create course**_
+_**POST create comment**_
 
 ```
 http://127.0.0.1:8000/api/episode/{episode_id}/comments
@@ -289,7 +289,7 @@ _**PUT update comment**_
 http://127.0.0.1:8000/api/comment/update/{id}
 ```
 
-Update details of a specified course.
+Update a specific comment for an episode.
 
 **Request**
 ```
