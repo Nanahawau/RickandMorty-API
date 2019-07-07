@@ -1,4 +1,4 @@
-##Rick and Morty - <small>CODING CHALLENGE</small>
+# Rick and Morty - <small>CODING CHALLENGE</small>
 
 This is an API that restructures the response of an external API providing you with list of episodes of the Rick and Morty show, their comment counts, character list and comments attached to an episode.
 
@@ -103,12 +103,6 @@ Fetches comments of a specified episode.
 ```
 http://127.0.0.1:8000/api/episodes/{episode}/characters
 ```
-**Required**
-<pre>
-Episode_id is required as a query parameter. i.e
-http://127.0.0.1:8000/api/episode/character_list?episode_id=1
-</pre>
-
 Get the character list for an episode
 
 **Response**
