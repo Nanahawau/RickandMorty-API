@@ -36,7 +36,7 @@ Follow the procedures listed below to setup the project locally:
 
 #### EPISODES
 #
-_**GET all episodes and comment count**_
+**GET all episodes and comment count**
 ```
 http://127.0.0.1:8000/api/episodes
 ```
@@ -75,7 +75,7 @@ http://127.0.0.1:8000/api/episode?page=2
 
 ````
 
-*GET  a specific episode **_
+_**GET  a specific episode**_
 ```
 http://127.0.0.1:8000/api/episodes/{episode}
 ```
@@ -118,7 +118,7 @@ Fetches comments of a specified episode.
 }
 ````
 
-**Get character list for an episode**_
+_**Get character list for an episode**_
 
 ```
 http://127.0.0.1:8000/api/episodes/{episode}/characters
