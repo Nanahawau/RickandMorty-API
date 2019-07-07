@@ -1,4 +1,4 @@
-##Rick and Morty - <small>CODING CHALLENGE</small>
+# Rick and Morty - <small>CODING CHALLENGE</small>
 
 This is an API that restructures the response of an external API providing you with list of episodes of the Rick and Morty show, their comment counts, character list and comments attached to an episode.
 
