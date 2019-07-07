@@ -150,7 +150,17 @@ class CommentsController extends Controller
     public function destroy($id)
     {
 
-        $comment = Comment::findOrFail($id);
+
+        $comment = Comment::find($id);
+
+        if (!$comment) {
+
+            return response()->json([
+                'status' => 404,
+                'message' => "Resource not Found"
+            ]);
+        }
+
         $comment->delete();
 
         return response()->json([

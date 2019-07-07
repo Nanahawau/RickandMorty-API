@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Validator;
 class EpisodeController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a list of all episodes and their comment count.
      *
      * @return \Illuminate\Http\Response
      * @throws \Exception
@@ -27,7 +27,6 @@ class EpisodeController extends Controller
         ]);
 
 
-
         $page = $request->page ?? 1;
 
         $https = new Client();
@@ -40,6 +39,13 @@ class EpisodeController extends Controller
 
         $episodes = $api_results->results;
 
+        if (!$episodes) {
+
+            return response()->json([
+                'status' => 404,
+                'message' => "Resource not Found"
+            ]);
+        }
 
 
         $new_episodes = [];
@@ -67,28 +73,36 @@ class EpisodeController extends Controller
 
     }
 
-    public function getCharacterList(Request $request)
+    /**
+     * Gets all characters in an episode
+     * @param $episode
+     * @return \Illuminate\Http\JsonResponse
+     */
+
+
+    public function getCharacterList($episode)
     {
 
 
-        $validation = Validator::make($request->all(), [
-
-            'episode_id' => 'required|numeric'
-        ]);
-
-        $episode_id = $request->episode_id;
-
         $https = new Client();
-        $response = $https->get("rickandmortyapi.com/api/episode/$episode_id");
+        $response = $https->get("rickandmortyapi.com/api/episode/$episode");
 
 
         $episode = json_decode($response->getBody()->getContents());
 
         $characters = $episode->characters;
 
+        if (!$characters) {
+
+            return response()->json([
+                'status' => 404,
+                'message' => "Resource not Found"
+            ]);
+        }
+
         $character_detail = [];
 
-        foreach ($characters as $character){
+        foreach ($characters as $character) {
 
             $https = new Client();
             $response = $https->get("$character");
@@ -96,10 +110,10 @@ class EpisodeController extends Controller
 
             $character_details = [
                 'id' => $char->id,
-                'name'=> $char->name,
-                'status'=>$char->status,
-                'species'=>$char->species,
-                'gender'=>$char->gender
+                'name' => $char->name,
+                'status' => $char->status,
+                'species' => $char->species,
+                'gender' => $char->gender
             ];
 
 

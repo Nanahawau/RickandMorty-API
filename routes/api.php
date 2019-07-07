@@ -18,14 +18,16 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-Route::get('/episode' ,'EpisodeController@index');
+Route::get('/episodes' ,'EpisodeController@index');
 
-Route::get('/episode/{episode_id}/comments', 'CommentsController@show');
+Route::get('/episodes/{episode}/comments', 'CommentsController@show');
 
-Route::post('/episode/{episode_id}/comments', "CommentsController@create");
+Route::get('/episodes/{episode}/characters', 'EpisodeController@getCharacterList');
 
-Route::put('/comment/update/{id}', 'CommentsController@update');
+Route::post('/episodes/{episode}/comments', "CommentsController@create");
 
-Route::delete('/comment/delete/{id}', 'CommentsController@destroy');
+Route::put('episodes/comments/{comment}', 'CommentsController@update');
 
-Route::get('/episode/character_list', 'EpisodeController@getCharacterList');
+Route::delete('episodes/comments/{comment}', 'CommentsController@destroy');
+
+

@@ -30,6 +30,7 @@ Follow the procedures listed below to setup the project locally:
 ### Custom Status Codes
 * 200 - Action carried out successfully
 * 400 - Bad request (An error caused by you)
+* 404 - Resource not found
 * 500 - You did everything right, but an error occurred (contact support)
 
 
@@ -37,7 +38,7 @@ Follow the procedures listed below to setup the project locally:
 #
 _**GET all episodes and comment count**_
 ```
-http://127.0.0.1:8000/api/episode
+http://127.0.0.1:8000/api/episodes
 ```
 
 Fetches all episodes with their comment counts.
@@ -77,7 +78,7 @@ http://127.0.0.1:8000/api/episode?page=2
 _**GET comments for an episode**_
 
 ```
-http://127.0.0.1:8000/api/episode/{episode_id}/comments
+http://127.0.0.1:8000/api/episodes/{episode}/comments
 ```
 
 Fetches comments of a specified episode.
@@ -100,7 +101,7 @@ Fetches comments of a specified episode.
 **Get character list for an episode**_
 
 ```
-http://127.0.0.1:8000/api/episode/character_list
+http://127.0.0.1:8000/api/episodes/{episode}/characters
 ```
 **Required**
 <pre>
@@ -286,7 +287,7 @@ Create a new comment for an episode.
 _**PUT update comment**_
 
 ```
-http://127.0.0.1:8000/api/comment/update/{id}
+http://127.0.0.1:8000/api/episodes/comments/{comment}
 ```
 
 Update a specific comment for an episode.
@@ -320,7 +321,7 @@ Update a specific comment for an episode.
 **DELETE a comment**_
 
 ```
-http://127.0.0.1:8000/api/comment/delete/{id}
+http://127.0.0.1:8000/api/episodes/comments/{comment}
 ```
 This endpoint deletes a comment permanently
 
