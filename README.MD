@@ -125,14 +125,12 @@ http://127.0.0.1:8000/api/episodes/{episode}/characters
 ```
 Get the character list for an episode
 
-**Required Parameters**
-<pre>
+### Required Parameters
 *filterby - which is the gender parameter,
 *keyword - which can be either male or female,
 *sortby - name, gender, species parameter,
 *order - either asc or desc
 
-</pre>
 
 **Response**
 
