@@ -103,12 +103,6 @@ Fetches comments of a specified episode.
 ```
 http://127.0.0.1:8000/api/episodes/{episode}/characters
 ```
-**Required**
-<pre>
-Episode_id is required as a query parameter. i.e
-http://127.0.0.1:8000/api/episode/character_list?episode_id=1
-</pre>
-
 Get the character list for an episode
 
 **Response**
