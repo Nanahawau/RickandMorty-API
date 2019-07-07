@@ -127,10 +127,10 @@ Get the character list for an episode
 
 **Required Parameters**
 <pre>
-filterby - which is the gender parameter,
-keyword - which can be either male or female
-sortby - name, gender, species parameter
-order - either asc or desc
+*filterby - which is the gender parameter,
+*keyword - which can be either male or female,
+*sortby - name, gender, species parameter,
+*order - either asc or desc
 
 </pre>
 
@@ -341,7 +341,7 @@ Update a specific comment for an episode.
 
 ```
 
-**DELETE a comment**_
+_**DELETE a comment**_
 
 ```
 http://127.0.0.1:8000/api/episodes/comments/{comment}
