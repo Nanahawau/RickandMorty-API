@@ -21,7 +21,8 @@ class CommentTableSeed extends Seeder
 
             \App\Comment::create([
                 'episode_id' => $faker->numberBetween(1, 31),
-                'comment' => $faker->realText('200', '3')
+                'comment' => $faker->realText('200', '3'),
+                'ip_address'=>$faker->ipv4
             ]);
         }
 

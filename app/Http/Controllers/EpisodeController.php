@@ -79,6 +79,34 @@ class EpisodeController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
 
+    public function show($episode)
+    {
+
+        $https = new Client();
+        $response = $https->get("rickandmortyapi.com/api/episode/$episode");
+
+
+        $episode = json_decode($response->getBody()->getContents());
+
+        if(!$episode){
+
+            return response()->json([
+                'status' => 404,
+                'message' => "Resource not Found"
+            ]);
+        }
+
+        return response()->json([
+           'status' => 200,
+           'data' => [
+               'id' => $episode->id,
+               'name' => $episode->name,
+               'air_date'=>$episode->air_date,
+               'episode'=>$episode->episode
+           ]
+        ]);
+
+    }
 
     public function getCharacterList($episode)
     {

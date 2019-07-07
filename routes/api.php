@@ -20,6 +20,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/episodes' ,'EpisodeController@index');
 
+Route::get('/episodes/{episode}' ,'EpisodeController@show');
+
 Route::get('/episodes/{episode}/comments', 'CommentsController@show');
 
 Route::get('/episodes/{episode}/characters', 'EpisodeController@getCharacterList');

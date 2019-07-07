@@ -75,7 +75,27 @@ http://127.0.0.1:8000/api/episode?page=2
 
 ````
 
-_**GET comments for an episode**_
+*GET  a specific episode **_
+```
+http://127.0.0.1:8000/api/episodes/{episode}
+```
+
+Fetches a specific episode with their details.
+
+**Response**
+````json
+{
+    "status": 200,
+    "data": {
+        "id": 2,
+        "name": "Lawnmower Dog",
+        "air_date": "December 9, 2013",
+        "episode": "S01E02"
+    }
+}
+````
+
+_**GET a specific episode**_
 
 ```
 http://127.0.0.1:8000/api/episodes/{episode}/comments

@@ -21,6 +21,7 @@ class CommentsController extends Controller
         $comments = DB::table('comments')
             ->selectRaw('id, episode_id, comment')
             ->where('episode_id', '=', $episode_id)
+            ->orderBy('created_at', 'DESC')
             ->get();
 
 
@@ -65,11 +66,15 @@ class CommentsController extends Controller
 
         }
 
+        $ip = request()->ip();
+
+
 
         try {
             $comment = Comment::create([
                 'episode_id' => $episode_id,
-                'comment' => $request->comment
+                'comment' => $request->comment,
+                'ip_address'=>$ip
             ]);
 
 
