@@ -19,7 +19,7 @@ class CommentsController extends Controller
     {
 
         $comments = DB::table('comments')
-            ->selectRaw('id, episode_id, comment')
+            ->selectRaw('id, episode_id, comment, ip_address, created_at')
             ->where('episode_id', '=', $episode_id)
             ->orderBy('created_at', 'DESC')
             ->get();
