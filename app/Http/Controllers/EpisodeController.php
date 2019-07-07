@@ -88,73 +88,99 @@ class EpisodeController extends Controller
 
         $episode = json_decode($response->getBody()->getContents());
 
-        if(!$episode){
+        if (!$episode) {
 
             return response()->json([
                 'status' => 404,
                 'message' => "Resource not Found"
             ]);
-        }
-
-        return response()->json([
-           'status' => 200,
-           'data' => [
-               'id' => $episode->id,
-               'name' => $episode->name,
-               'air_date'=>$episode->air_date,
-               'episode'=>$episode->episode
-           ]
-        ]);
-
-    }
-
-    public function getCharacterList($episode)
-    {
-
-
-        $https = new Client();
-        $response = $https->get("rickandmortyapi.com/api/episode/$episode");
-
-
-        $episode = json_decode($response->getBody()->getContents());
-
-        $characters = $episode->characters;
-
-        if (!$characters) {
-
-            return response()->json([
-                'status' => 404,
-                'message' => "Resource not Found"
-            ]);
-        }
-
-        $character_detail = [];
-
-        foreach ($characters as $character) {
-
-            $https = new Client();
-            $response = $https->get("$character");
-            $char = json_decode($response->getBody()->getContents());
-
-            $character_details = [
-                'id' => $char->id,
-                'name' => $char->name,
-                'status' => $char->status,
-                'species' => $char->species,
-                'gender' => $char->gender
-            ];
-
-
-            $character_detail[] = $character_details;
         }
 
         return response()->json([
             'status' => 200,
-            'data' => $character_detail
+            'data' => [
+                'id' => $episode->id,
+                'name' => $episode->name,
+                'air_date' => $episode->air_date,
+                'episode' => $episode->episode
+            ]
         ]);
 
     }
 
+    public function getCharacterList(Request $request, $episode)
+    {
+        $validation = Validator::make($request->all(), [
+            'filterby' => 'nullable|in:status,species,type,gender',
+            'keyword' => 'required_with:filterBy',
+            'sortby' => 'nullable|in:name,gender,species',
+            'order' => 'required_with:sortby|in:asc,desc'
+        ]);
+
+
+        if ($validation->fails()) {
+            return response()->json([
+                'status' => 400,
+                'message' => 'Bad Request',
+                'errors' => $validation->errors()
+
+            ]);
+
+        }
+
+
+        try {
+            $https = new Client();
+            $response = $https->get("rickandmortyapi.com/api/episode/$episode");
+
+            $episode = json_decode($response->getBody()->getContents());
+
+            $characters = collect([]);
+
+            foreach ($episode->characters as $character) {
+                $https = new Client();
+                $response = $https->get("$character");
+                $char = json_decode($response->getBody()->getContents());
+
+                // Rebuild object
+                $character_details = [
+                    'id' => $char->id,
+                    'name' => $char->name,
+                    'status' => $char->status,
+                    'species' => $char->species,
+                    'gender' => $char->gender
+                ];
+
+                // Filter
+                if ($request->has('filterby')) {
+                    if (strtolower($request->keyword) === strtolower($character_details[$request->filterby])) {
+                        $characters->push($character_details);
+                    }
+                } else {
+                    $characters->push($character_details);
+                }
+            }
+
+            if ($request->has('sortby')) {
+                if ($request->order == 'asc') {
+                    $characters = $characters->sortBy($request->sortby);
+                } else {
+                    $characters = $characters->sortByDesc($request->sortby);
+                }
+            }
+
+            return response()->json([
+                'status' => 200,
+                'data' => $characters
+            ]);
+
+        } catch (\Exception $exception) {
+            return response()->json([
+                'status' => $exception->getCode(),
+                'message' => $exception->getMessage()
+            ]);
+        }
+    }
+
 
 }
-

@@ -53,7 +53,7 @@ class CommentsController extends Controller
     {
 
         $validation = validator::make($request->all(), [
-            'comment' => 'required'
+            'comment' => 'required'|'max:500'
         ]);
 
         if ($validation->fails()) {
